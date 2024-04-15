@@ -34,7 +34,7 @@ class ComponentsFinder {
 
     List<RecordComponent> getComponents(List<Method> allMethods, Predicate<Method> isNotSpecial) {
         return allMethods.stream()
-                .filter(Method::isAbstract)
+                .filter(method->method.isAbstract()||method.isDefault())
                 .filter(isNotSpecial)
                 .filter(Method::hasNoParameters)
                 .filter(Method::isNotVoid)

@@ -27,10 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.lang.model.element.Modifier.ABSTRACT;
+import static javax.lang.model.element.Modifier.DEFAULT;
 import static javax.lang.model.type.TypeKind.VOID;
 
 public record Method(String name,
                      boolean isAbstract,
+                     boolean isDefault,
                      List<Parameter> parameters,
                      List<AnnotationMirror> annotations,
                      TypeMirror returnType) {
@@ -39,11 +41,12 @@ public record Method(String name,
         var name = method.getSimpleName().toString();
         var modifiers = method.getModifiers();
         var isAbstract = modifiers.contains(ABSTRACT);
+        var isDefault = modifiers.contains(DEFAULT);
         var returnType = findReturnType(method, typeUtils, sourceInterface);
         var parameters = findParameters(method, typeUtils, sourceInterface);
         var annotations = (List<AnnotationMirror>) method.getAnnotationMirrors();
 
-        return new Method(name, isAbstract, parameters, annotations, returnType);
+        return new Method(name, isAbstract, isDefault, parameters, annotations, returnType);
     }
 
     public boolean hasNoParameters() {
@@ -65,7 +68,7 @@ public record Method(String name,
         var variableElements = method.getParameters();
 
         if (variableElements.isEmpty()) {
-            return List.of();
+            return java.util.List.of();
         }
 
         var methodAsMember = (ExecutableType) typeUtils.asMemberOf((DeclaredType) sourceInterface.asType(), method);
@@ -83,8 +86,11 @@ public record Method(String name,
             parameters.add(parameter);
         }
 
-        return List.copyOf(parameters);
+        return java.util.List.copyOf(parameters);
     }
 
-    public record Parameter(String name, TypeMirror type, List<AnnotationMirror> annotations) {}
+    public record Parameter(String name,
+                            TypeMirror type,
+                            List<AnnotationMirror> annotations) {
+    }
 }
