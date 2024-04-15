@@ -34,7 +34,7 @@ class ComponentsFinder {
 
     List<RecordComponent> getComponents(List<Method> allMethods, Predicate<Method> isNotSpecial) {
         return allMethods.stream()
-                .filter(method->method.isAbstract()||method.isDefault())
+                .filter(method -> method.isAbstract() || method.isDefault())
                 .filter(isNotSpecial)
                 .filter(Method::hasNoParameters)
                 .filter(Method::isNotVoid)
@@ -49,8 +49,8 @@ class ComponentsFinder {
 
         if (returnType.getKind() == ERROR && returnType.toString().equals(ERROR_INDICATOR)) {
             throw new AutoRecordProcessorException("Cannot infer type of " + name + "() method. " +
-                    "Probably it is generic and not in classpath or sourcepath yet. " +
-                    "Try to move the type class into classpath or remove generic clause from " + name + "() method.");
+                                                   "Probably it is generic and not in classpath or sourcepath yet. " +
+                                                   "Try to move the type class into classpath or remove generic clause from " + name + "() method.");
         }
 
         var annotations = annotationsAllowedFor(method.annotations(), Set.of(PARAMETER, RECORD_COMPONENT));
