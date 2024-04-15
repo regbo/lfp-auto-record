@@ -46,8 +46,9 @@
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-
-        <fabric-javapoet.version>0.1.0</fabric-javapoet.version>
+        <fabric-javapoet.groupId>com.github.FabricMC</fabric-javapoet.groupId>
+        <fabric-javapoet.artifactId>javapoet</fabric-javapoet.artifactId>
+        <fabric-javapoet.version>d9b7dba158</fabric-javapoet.version>
         <record-builder.version>40</record-builder.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
@@ -65,7 +66,12 @@
         <!--suppress UnresolvedMavenProperty -->
         <license-maven-plugin.header>${maven.multiModuleProjectDirectory}/.build/lic-header.txt</license-maven-plugin.header>
     </properties>
-
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.apiguardian</groupId>
@@ -81,8 +87,8 @@
                 <version>${apiguardian-api.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.fabricmc</groupId>
-                <artifactId>javapoet</artifactId>
+                <groupId>${fabric-javapoet.groupId}</groupId>
+                <artifactId>${fabric-javapoet.artifactId}</artifactId>
                 <version>${fabric-javapoet.version}</version>
             </dependency>
             <dependency>
@@ -535,10 +541,4 @@
         </repository>
     </distributionManagement>
 
-    <repositories>
-        <repository>
-            <id>fabric-repository</id>
-            <url>https://maven.fabricmc.net</url>
-        </repository>
-    </repositories>
 </project>

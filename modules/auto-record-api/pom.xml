@@ -18,8 +18,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.fabricmc</groupId>
-            <artifactId>javapoet</artifactId>
+            <groupId>${fabric-javapoet.groupId}</groupId>
+            <artifactId>${fabric-javapoet.artifactId}</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
